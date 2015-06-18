@@ -1,5 +1,3 @@
-package de.berlin.fu.vs;
-
 import java.util.HashMap;
 import akka.actor.ActorRef;
 import akka.actor.UntypedActor;
@@ -26,7 +24,7 @@ public abstract class AbstractWallet extends UntypedActor implements Serializabl
     
     // May be used to delete a stored Wallet on another participant
     public static class ActionInvalidate implements Serializable {
-        final String name;
+        public final String name;
         public ActionInvalidate(String name) {
             this.name = name;
         }
@@ -34,7 +32,7 @@ public abstract class AbstractWallet extends UntypedActor implements Serializabl
     
     // Used to send (positive amount) or retreive money (negative amount) 
     public static class ActionReceiveTransaction implements Serializable {
-        final public int amount;
+        public final int amount;
         public ActionReceiveTransaction(int amount) {
             this.amount = amount;
         }
@@ -43,7 +41,7 @@ public abstract class AbstractWallet extends UntypedActor implements Serializabl
     // Used to search a Wallet by name, i.e. when we want to 
     // perform a transaction on it
     public static class ActionSearchWalletReference implements Serializable {
-        final String name;
+        public final String name;
         public ActionSearchWalletReference(String name) {
             this.name = name;
         }
@@ -52,7 +50,7 @@ public abstract class AbstractWallet extends UntypedActor implements Serializabl
     // Used to return a Wallet reference (akka-style string which can 
     // be transformed to an ActorRef)
     public static class ActionSearchWalletReferenceAnswer implements Serializable {
-        final String address;
+        public final String address;
         public ActionSearchWalletReferenceAnswer(String address) {
             this.address = address;
         }
@@ -65,7 +63,7 @@ public abstract class AbstractWallet extends UntypedActor implements Serializabl
     // Note: You should also forward the sender (the participant who actually
     // searches for this Wallet, so that it can be returnd the direct way)
     public static class ActionSearchMyWallet implements Serializable {
-        final String name;
+        public final String name;
         public ActionSearchMyWallet(String name) {
             this.name = name;
         }
@@ -73,7 +71,7 @@ public abstract class AbstractWallet extends UntypedActor implements Serializabl
     
     // Used to return a searched Wallet
     public static class ActionSearchMyWalletAnswer implements Serializable {
-        final AbstractWallet w;
+        public final AbstractWallet w;
         public ActionSearchMyWalletAnswer(AbstractWallet w) {
             this.w = w;
         }
