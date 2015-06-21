@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 public abstract class AbstractWallet extends UntypedActor implements Serializable {
     
-    // Used to join the network (a pre known participant/Wallet must be known)
+    // Used to join the network (a pre known participant/JoinEvent must be known)
     public static class ActionJoin implements Serializable {}
     
     // Returns some neighbors that might be used as known
@@ -24,7 +24,7 @@ public abstract class AbstractWallet extends UntypedActor implements Serializabl
         }
     }
     
-    // May be used to delete a stored Wallet on another participant
+    // May be used to delete a stored JoinEvent on another participant
     public static class ActionInvalidate implements Serializable {
         public final String name;
         public ActionInvalidate(String name) {
@@ -40,7 +40,7 @@ public abstract class AbstractWallet extends UntypedActor implements Serializabl
         }
     }
     
-    // Used to search a Wallet by name, i.e. when we want to 
+    // Used to search a JoinEvent by name, i.e. when we want to
     // perform a transaction on it
     public static class ActionSearchWalletReference implements Serializable {
         public final String name;
@@ -49,7 +49,7 @@ public abstract class AbstractWallet extends UntypedActor implements Serializabl
         }
     }
     
-    // Used to return a Wallet reference (akka-style string which can 
+    // Used to return a JoinEvent reference (akka-style string which can
     // be transformed to an ActorRef)
     public static class ActionSearchWalletReferenceAnswer implements Serializable {
         public final String address;
@@ -58,12 +58,12 @@ public abstract class AbstractWallet extends UntypedActor implements Serializabl
         }
     }
     
-    // Used to search a Wallet by name, i.e. the own wallet if we just 
-    // joined the network; If a receiving participant holds the stored Wallet, 
+    // Used to search a JoinEvent by name, i.e. the own wallet if we just
+    // joined the network; If a receiving participant holds the stored JoinEvent,
     // he returns it, otherwise, he might use gossiping methods to go on 
     // with the search;
     // Note: You should also forward the sender (the participant who actually
-    // searches for this Wallet, so that it can be returnd the direct way)
+    // searches for this JoinEvent, so that it can be returnd the direct way)
     public static class ActionSearchMyWallet implements Serializable {
         public final String name;
         public ActionSearchMyWallet(String name) {
@@ -71,7 +71,7 @@ public abstract class AbstractWallet extends UntypedActor implements Serializabl
         }
     }
     
-    // Used to return a searched Wallet
+    // Used to return a searched JoinEvent
     public static class ActionSearchMyWalletAnswer implements Serializable {
         public final AbstractWallet w;
         public ActionSearchMyWalletAnswer(AbstractWallet w) {
@@ -102,18 +102,18 @@ public abstract class AbstractWallet extends UntypedActor implements Serializabl
     
     // Holds references to neighbors that were in 
     // contact with this wallet during runtime;
-    // The key corresponds to the Wallet's name
+    // The key corresponds to the JoinEvent's name
     public transient HashMap<String, ActorRef> knownNeighbors;
     
     // Holds references to neighbors this wallet 
-    // synchronizes itself to (the Wallet object);
-    // The key corresponds to the Wallet's name
+    // synchronizes itself to (the JoinEvent object);
+    // The key corresponds to the JoinEvent's name
     public transient HashMap<String, ActorRef> localNeighbors;
     
     // Holds all Wallets from network participants 
-    // which synchronize their state (Wallet object)
+    // which synchronize their state (JoinEvent object)
     // with us;
-    // The key corresponds to the Wallet's name
+    // The key corresponds to the JoinEvent's name
     public transient HashMap<String, AbstractWallet> backedUpNeighbors;
     
     // The name of this wallet (does never change, no 

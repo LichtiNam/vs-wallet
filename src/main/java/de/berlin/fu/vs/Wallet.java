@@ -17,37 +17,18 @@ public class Wallet extends AbstractWallet {
         final Inbox inbox = Inbox.create(system);
     }
     
-    public Wallet(String name)
-    {
+    public Wallet(String name) {
         super(name);
     }
 
     public void onReceive(Object message) {
-        // TODO implement
-        
-        /*
-        if (message instanceof ActionReceiveTransaction)
-        {
-            System.out.println("hello, " + ((ActionReceiveTransaction) message).amount;
-        }
-        else if (message instanceof ActionReceiveTransaction) {
-            // Send the current greeting back to the sender
-            getSender().tell(new ActionReceiveTransaction(0.01), getSelf());
-        }
-        else {
-            unhandled(message);
-        }
-        */
-        
     }
     
     public String getAddress() {
-        // TODO implement
         return "";
     }
     
     public void leave() {
-        // TODO implement
     }
     
 }
